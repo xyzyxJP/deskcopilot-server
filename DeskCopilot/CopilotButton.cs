@@ -8,9 +8,9 @@
         public string Icon { get; set; }
         public ButtonType Type { get; set; }
 
-        public CopilotButton(string id, string name, string value, string icon, ButtonType type)
+        public CopilotButton(string name, string value, string icon, ButtonType type)
         {
-            Id = id;
+            Id = Guid.NewGuid().ToString();
             Name = name;
             Value = value;
             Icon = icon;

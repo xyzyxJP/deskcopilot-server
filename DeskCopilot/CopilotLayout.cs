@@ -7,9 +7,9 @@
         public string Description { get; set; }
         public CopilotButton[][] Buttons { get; set; }
 
-        public CopilotLayout(string id, string name, string description, CopilotButton[][] buttons)
+        public CopilotLayout(string name, string description, CopilotButton[][] buttons)
         {
-            Id = id;
+            Id = Guid.NewGuid().ToString();
             Name = name;
             Description = description;
             Buttons = buttons;

@@ -1,34 +1,33 @@
 ﻿using Fleck;
+using System.Text.Json;
 
 namespace DeskCopilot
 {
     internal class CopilotServer
     {
         private readonly WebSocketServer server;
+        private readonly List<IWebSocketConnection> sockets;
 
         private CopilotLayout[] layouts;
-
         public CopilotLayout[] Layouts
         {
-            get
-            {
-                return layouts;
-            }
+            get => layouts;
             set
             {
                 layouts = value;
-                SendMessage(layouts);
+                SendMessage(JsonSerializer.Serialize(layouts));
             }
         }
 
-        public CopilotServer(int port, CopilotLayout[] layouts)
+        public CopilotServer(string address, int port, CopilotLayout[] layouts)
         {
-            server = new($"ws://127.0.0.1:{port}");
+            sockets = new List<IWebSocketConnection>();
+            server = new($"ws://{address}:{port}");
             server.Start(socket =>
             {
-                socket.OnOpen = () => Console.WriteLine("Open!");
-                socket.OnClose = () => Console.WriteLine("Close!");
-                socket.OnMessage = message => ReceiveMessage(message);
+                socket.OnOpen = () => sockets.Add(socket);
+                socket.OnClose = () => sockets.Remove(socket);
+                socket.OnMessage = message => ReceiveMessage(socket, message);
                 socket.OnBinary = bytes =>
                 {
 
@@ -37,14 +36,32 @@ namespace DeskCopilot
             this.layouts = layouts;
         }
 
-        private void ReceiveMessage(string message)
+        public void Stop()
         {
+            server.Dispose();
+        }
 
+        public void Refresh()
+        {
+            SendMessage(JsonSerializer.Serialize(layouts));
+        }
+
+        private void ReceiveMessage(IWebSocketConnection socket, string message)
+        {
+            switch (message)
+            {
+                case "layouts":
+                    socket.Send(JsonSerializer.Serialize(layouts));
+                    break;
+                default:
+                    socket.Send(message);
+                    break;
+            }
         }
 
         private void SendMessage(string message)
         {
-
+            sockets.ForEach(socket => { socket.Send(message); });
         }
 
     }

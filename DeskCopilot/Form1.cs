@@ -17,11 +17,11 @@ namespace DeskCopilot
             CopilotLayout[] layouts = new CopilotLayout[]  {
             new CopilotLayout("Test", "Test", new CopilotButton[,]
             {
-               { new CopilotButton("Test1", "Test","", ButtonType.Tap ), new CopilotButton("Test2", "Test", "", ButtonType.Tap), new CopilotButton("Test3", "Test", "", ButtonType.Tap) },
-               { new CopilotButton("Test4", "Test","", ButtonType.Tap ), new CopilotButton("Test5", "Test", "", ButtonType.Tap), new CopilotButton("Test6", "Test", "", ButtonType.Tap) },
-               { new CopilotButton("Test7", "Test","", ButtonType.Tap ), new CopilotButton("Test8", "Test", "", ButtonType.Tap), new CopilotButton("Test9", "Test", "", ButtonType.Tap) },
-               { new CopilotButton("Test10", "Test","", ButtonType.Tap ), new CopilotButton("Test11", "Test", "", ButtonType.Tap), new CopilotButton("Test12", "Test", "", ButtonType.Tap) },
-               { new CopilotButton("Test13", "Test","", ButtonType.Tap ), new CopilotButton("Test14", "Test", "", ButtonType.Tap), new CopilotButton("Test15", "Test", "", ButtonType.Tap) }
+               { new CopilotButton("TapButton", string.Empty,"", ButtonType.Press ), new CopilotButton("Test2", "Test", "", ButtonType.Press), new CopilotButton("Test3", "Test", "", ButtonType.Press) },
+               { new CopilotButton("LongPressButton", string.Empty,"", ButtonType.LongPress ), new CopilotButton("Test5", "Test", "", ButtonType.Press), new CopilotButton("Test6", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", (new Random()).Next().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
+               { new CopilotButton("Test10", "Test","", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
+               { new CopilotButton("Test13", "Test","", ButtonType.Press ), new CopilotButton("Test14", "Test", "", ButtonType.Press), new CopilotButton("Test15", "Test", "", ButtonType.Press) }
             })};
             string address = NetworkInterface.GetAllNetworkInterfaces().Select(e => e.GetIPProperties()).Where(e => e.GatewayAddresses.Count != 0).First().UnicastAddresses.Where(e => e.Address.AddressFamily.Equals(AddressFamily.InterNetwork)).First().Address.ToString();
             int port = 8080;
@@ -39,7 +39,16 @@ namespace DeskCopilot
 
         private void RefreshButton_Click(object sender, EventArgs e)
         {
-            server?.Refresh();
+            server?.SetLayouts(new CopilotLayout[]  {
+            new CopilotLayout("Test", "Test", new CopilotButton[,]
+            {
+               { new CopilotButton("TapButton", string.Empty,"", ButtonType.Press ), new CopilotButton("Test2", "Test", "", ButtonType.Press), new CopilotButton("Test3", "Test", "", ButtonType.Press) },
+               { new CopilotButton("LongPressButton", string.Empty,"", ButtonType.LongPress ), new CopilotButton("Test5", "Test", "", ButtonType.Press), new CopilotButton("Test6", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", (new Random()).Next().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
+               { new CopilotButton("Test10", "Test","", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
+               { new CopilotButton("Test13", "Test","", ButtonType.Press ), new CopilotButton("Test14", "Test", "", ButtonType.Press), new CopilotButton("Test15", "Test", "", ButtonType.Press) }
+            })});
+            //server?.Refresh();
         }
     }
 }

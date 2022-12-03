@@ -9,15 +9,6 @@ namespace DeskCopilot
         private readonly List<IWebSocketConnection> sockets;
 
         private CopilotLayout[] layouts;
-        public CopilotLayout[] Layouts
-        {
-            get => layouts;
-            set
-            {
-                layouts = value;
-                SendMessage(JsonConvert.SerializeObject(layouts));
-            }
-        }
 
         public CopilotServer(string address, int port, CopilotLayout[] layouts)
         {
@@ -34,6 +25,12 @@ namespace DeskCopilot
                 };
             });
             this.layouts = layouts;
+        }
+
+        public void SetLayouts(CopilotLayout[] layouts)
+        {
+            this.layouts = layouts;
+            SendMessage(JsonConvert.SerializeObject(layouts));
         }
 
         public void Stop()

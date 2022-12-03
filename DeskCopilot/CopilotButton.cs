@@ -21,7 +21,7 @@
     public enum ButtonType
     {
         None = 0,
-        Tap = 1,
+        Press = 1,
         LongPress = 2,
         Text = 3,
         Progress = 4,

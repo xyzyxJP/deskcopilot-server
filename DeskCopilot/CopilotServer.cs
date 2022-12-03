@@ -1,5 +1,5 @@
 ﻿using Fleck;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace DeskCopilot
 {
@@ -15,7 +15,7 @@ namespace DeskCopilot
             set
             {
                 layouts = value;
-                SendMessage(JsonSerializer.Serialize(layouts));
+                SendMessage(JsonConvert.SerializeObject(layouts));
             }
         }
 
@@ -43,7 +43,7 @@ namespace DeskCopilot
 
         public void Refresh()
         {
-            SendMessage(JsonSerializer.Serialize(layouts));
+            SendMessage(JsonConvert.SerializeObject(layouts));
         }
 
         private void ReceiveMessage(IWebSocketConnection socket, string message)
@@ -51,7 +51,7 @@ namespace DeskCopilot
             switch (message)
             {
                 case "layouts":
-                    socket.Send(JsonSerializer.Serialize(layouts));
+                    socket.Send(JsonConvert.SerializeObject(layouts));
                     break;
                 default:
                     socket.Send(message);

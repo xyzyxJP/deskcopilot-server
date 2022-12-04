@@ -19,8 +19,8 @@ namespace DeskCopilot
             {
                { new CopilotButton("TapButton", string.Empty,"", ButtonType.Press ), new CopilotButton("Test2", "Test", "", ButtonType.Press), new CopilotButton("Test3", "Test", "", ButtonType.Press) },
                { new CopilotButton("LongPressButton", string.Empty,"", ButtonType.LongPress ), new CopilotButton("Test5", "Test", "", ButtonType.Press), new CopilotButton("Test6", "Test", "", ButtonType.Press) },
-               { new CopilotButton("TextButton", (new Random()).Next().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
-               { new CopilotButton("Test10", "Test","", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", CopilotValue.GetCpuUsage().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", CopilotValue.GetCpuUsage().ToString(),"", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
                { new CopilotButton("Test13", "Test","", ButtonType.Press ), new CopilotButton("Test14", "Test", "", ButtonType.Press), new CopilotButton("Test15", "Test", "", ButtonType.Press) }
             })};
             string address = NetworkInterface.GetAllNetworkInterfaces().Select(e => e.GetIPProperties()).Where(e => e.GatewayAddresses.Count != 0).First().UnicastAddresses.Where(e => e.Address.AddressFamily.Equals(AddressFamily.InterNetwork)).First().Address.ToString();
@@ -44,8 +44,8 @@ namespace DeskCopilot
             {
                { new CopilotButton("TapButton", string.Empty,"", ButtonType.Press ), new CopilotButton("Test2", "Test", "", ButtonType.Press), new CopilotButton("Test3", "Test", "", ButtonType.Press) },
                { new CopilotButton("LongPressButton", string.Empty,"", ButtonType.LongPress ), new CopilotButton("Test5", "Test", "", ButtonType.Press), new CopilotButton("Test6", "Test", "", ButtonType.Press) },
-               { new CopilotButton("TextButton", (new Random()).Next().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
-               { new CopilotButton("Test10", "Test","", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", CopilotValue.GetCpuUsage().ToString(),"", ButtonType.Text ), new CopilotButton("Test8", "Test", "", ButtonType.Press), new CopilotButton("Test9", "Test", "", ButtonType.Press) },
+               { new CopilotButton("TextButton", CopilotValue.GetCpuUsage().ToString(),"", ButtonType.Press ), new CopilotButton("Test11", "Test", "", ButtonType.Press), new CopilotButton("Test12", "Test", "", ButtonType.Press) },
                { new CopilotButton("Test13", "Test","", ButtonType.Press ), new CopilotButton("Test14", "Test", "", ButtonType.Press), new CopilotButton("Test15", "Test", "", ButtonType.Press) }
             })});
             //server?.Refresh();
